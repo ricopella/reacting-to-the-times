@@ -2,13 +2,12 @@ import React from "react";
 // Including the Link component from React Router to navigate within our application without full page reloads
 var Link = require("react-router").Link;
 // // Helper Function
-// import helpers from "../utils/helpers";
+import helpers from "../utils/helpers";
+
+import Search from "../components/children/Search";
+import Saved from "../components/children/Saved";
 class Main extends React.Component {
-  constructor(props) {
-    super(props);
-
-  }
-
+  
   render() {
     
         return (
@@ -33,14 +32,14 @@ class Main extends React.Component {
             </div>
           </nav>
 
-        <body>
           <div id="heading">
             <div className="intro-text">
             <h1>Welcome to Reacting to the NY Times!</h1>
             <p>A fresh brew of news from NYTimes.com</p>
             </div>
           </div>
-        </body>
+          <Search />
+          <Saved />
 
         <div className="row-fluid footer">
           <div className="col-12 text-center">
