@@ -1,0 +1,27 @@
+* {
+    font-family: 'Yantramanav', sans-serif;
+}
+
+#heading {
+    background: transparent;
+    min-height: 100%;
+    position: relative;
+    background: url("../images/bgimg.jpg") center center fixed no-repeat;
+    background-size: cover;
+}
+
+#heading .intro-text {
+    text-align: center;
+    color: #fff;
+    padding: 18% 0;
+    text-weight: bolder;
+    text-shadow: 0px 0px 3px #000;
+}
+
+#heading h1 {
+    font-size: 60px;
+}
+
+#heading p {
+    font-size: 30px;
+}
