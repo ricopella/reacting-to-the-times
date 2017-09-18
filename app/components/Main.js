@@ -1,16 +1,17 @@
-var React = require("react");
+import React from "react";
 // Including the Link component from React Router to navigate within our application without full page reloads
 var Link = require("react-router").Link;
 // // Helper Function
 // import helpers from "../utils/helpers";
+class Main extends React.Component {
+  constructor(props) {
+    super(props);
 
-var Main = React.createClass({
-    
-      // Here we render the function
-      render: function() {
+  }
+
+  render() {
     
         return (
-    
           <div className="container">
             <div className="jumbotron">
               <h2><strong>Article Finder</strong></h2>
@@ -21,7 +22,7 @@ var Main = React.createClass({
             </div>
           </div>
         );
-      }
-    });
+    }
+  }
 
-module.exports = Main;
+export default Main;

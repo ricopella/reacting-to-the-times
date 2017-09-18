@@ -2,7 +2,7 @@ const express = require('express'),
     colors = require("colors"),
     bodyParser = require("body-parser"),
     logger = require("morgan"),
-    Article = require("../models/Article"),
+    Article = require("./models/Article"),
     mongoose = require("mongoose"),
     dbURL = "mongodb://localhost/reactingtimes",
     app = express(),
@@ -32,7 +32,6 @@ app.get("/api/saved", function(req, res) {
         }
     });
 });
-
 
 // Save an article to the db
 app.post("/api/saved", function(req, res) {
