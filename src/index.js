@@ -2,7 +2,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 // import routes from "./config/routes";
-import Main from "./components/Main";
+import App from "./App";
 
 // This code here allows us to render our main component (in this case Parent)
-ReactDOM.render(<Main />, document.getElementById("app"));
+ReactDOM.render(
+    <App/>, document.getElementById("app"));

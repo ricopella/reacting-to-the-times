@@ -1,10 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 // Including the Link component from React Router to navigate within our application without full page reloads
 var Link = require("react-router").Link;
 // // Helper Function
 import helpers from "../../utils/helpers";
 
-class Saved extends React.Component {
+class Saved extends Component {
     
       render() {
         
