@@ -1,11 +1,24 @@
 import React, {Component} from "react";
-// Including the Link component from React Router to navigate within our
-// application without full page reloads
-var Link = require("react-router").Link;
+import {Link} from "react-router-dom";
 // // Helper Function
-import helpers from "../../utils/helpers";
+import API from "../../utils/helpers";
 
 class Search extends Component {
+  state = {
+    articles: [],
+    title: "",
+    author: ""
+  };
+
+  componentDidMount() {
+    this.loadArticles();
+  }
+
+  loadArticles = () => {
+    API
+      .runQuery("boston+red+sox")
+      .then(res => console.log(res.data.response))
+  }
 
   render() {
 
@@ -93,7 +106,7 @@ class Search extends Component {
           </div>
         </div>
       </section>
-    )
+    );
   }
 }
 export default Search;
