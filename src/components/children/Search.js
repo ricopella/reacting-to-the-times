@@ -4,12 +4,13 @@ import {Link} from "react-router-dom";
 import API from "../../utils/helpers";
 
 class Search extends Component {
-  state = {
-    articles: [],
-    title: "",
-    author: ""
-  };
-
+  constructor(props) {
+    super(props)
+    this.state = {
+      articles: [],
+      title: ""
+    };
+  }
   componentDidMount() {
     this.loadArticles();
   }
@@ -17,7 +18,11 @@ class Search extends Component {
   loadArticles = () => {
     API
       .runQuery("boston+red+sox")
-      .then(res => console.log(res.data.response))
+      .then(res => {
+        this.setState({articles: res.data.response.docs, title: ""})
+        console.log(this.state.articles)
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -101,6 +106,19 @@ class Search extends Component {
                 </div>
 
                 <div className="panel-body" id="well-section"></div>
+                <div className="list-overflow-container">
+                  <ul className="list-group">
+                    {this
+                      .state
+                      .articles
+                      .map(article => (
+                        <li className="list-group-item" key={article._id}>
+                          {article.headline.main}
+                          <a href={article.web_url}>Article Link</a>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
