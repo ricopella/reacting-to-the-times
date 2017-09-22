@@ -4,17 +4,14 @@ import {Link} from "react-router-dom";
 import API from "../../utils/helpers";
 
 class Search extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      articles: [],
-      title: ""
-    };
+  state = {
+    articles: [],
+    title: ""
   }
+
   componentDidMount() {
     this.loadArticles();
   }
-
   loadArticles = () => {
     API
       .runQuery("boston+red+sox")
@@ -22,6 +19,14 @@ class Search extends Component {
         this.setState({articles: res.data.response.docs, title: ""})
         console.log(this.state.articles)
       })
+      .catch(err => console.log(err));
+  }
+
+  saveArticle = (article) => {
+    console.log("Title: " + article.title);
+    console.log("url: " + article.url);
+    API.saveArticle({title: article.title, url: article.url})
+    // then load saved books
       .catch(err => console.log(err));
   }
 
@@ -115,6 +120,9 @@ class Search extends Component {
                         <li className="list-group-item" key={article._id}>
                           {article.headline.main}
                           <a href={article.web_url}>Article Link</a>
+                          <button
+                            data-id={article}
+                            onClick={() => this.saveArticle({title: article.headline.main, url: article.web_url})}>Save</button>
                         </li>
                       ))}
                   </ul>
