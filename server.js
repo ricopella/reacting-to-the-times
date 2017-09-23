@@ -47,9 +47,10 @@ app.post("/api/saved", function (req, res) {
 })
 
 // Delete a saved article from db
-app.delete("/api/saved", function (req, res) {
+app.delete("/api/saved/:id", function (req, res) {
+    console.log(req.params.id);
     Article
-        .remove({"_id": req.params.articleId})
+        .remove({"_id": req.params.id})
         .exec(function (err, doc) {
             if (err) {
                 console.log(err);

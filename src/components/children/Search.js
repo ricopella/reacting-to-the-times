@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-// // Helper Function
 import API from "../../utils/helpers";
 
 class Search extends Component {
@@ -18,7 +17,6 @@ class Search extends Component {
     event.preventDefault();
     console.log(this.state.term);
     if (this.state.term) {
-      // console.log(this.state.term);
       this.loadArticles(this.state.term)
     }
   }

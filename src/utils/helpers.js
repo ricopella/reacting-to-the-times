@@ -11,6 +11,12 @@ const helpers = {
     },
     saveArticle: (articleData) => {
         return axios.post("/api/saved", articleData);
+    },
+    getSavedArticles: () => {
+        return axios.get("/api/saved")
+    },
+    deleteArticle: (id) => {
+        return axios.delete("api/saved/" + id);
     }
 };
 
