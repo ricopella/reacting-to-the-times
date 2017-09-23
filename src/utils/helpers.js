@@ -10,7 +10,6 @@ const helpers = {
 
     },
     saveArticle: (articleData) => {
-        console.log("saving?");
         return axios.post("/api/saved", articleData);
     }
 };

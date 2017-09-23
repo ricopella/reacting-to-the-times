@@ -6,15 +6,32 @@ import API from "../../utils/helpers";
 class Search extends Component {
   state = {
     articles: [],
-    title: ""
+    title: "",
+    term: ""
   }
 
   componentDidMount() {
-    this.loadArticles();
+    // this.loadArticles();
   }
-  loadArticles = () => {
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    console.log(this.state.term);
+    if (this.state.term) {
+      // console.log(this.state.term);
+      this.loadArticles(this.state.term)
+    }
+  }
+
+  handleInputChange = event => {
+    const {name, value} = event.target;
+    this.setState({[name]: value});
+  };
+
+  loadArticles = (query) => {
+    console.log(query);
     API
-      .runQuery("boston+red+sox")
+      .runQuery(query)
       .then(res => {
         this.setState({articles: res.data.response.docs, title: ""})
         console.log(this.state.articles)
@@ -60,35 +77,26 @@ class Search extends Component {
 
                     <div className="form-group">
                       <label >Search Term:</label>
-                      <input type="text" className="form-control" id="search-term"/>
+                      <input
+                        value={this.state.term}
+                        onChange={this.handleInputChange}
+                        name="term"
+                        placeholder="Required"
+                        type="text"
+                        className="form-control"
+                        id="search-term"/>
                     </div>
 
-                    <div className="form-group">
-                      <label >Number of Records to Retrieve:</label>
-                      <select className="form-control" id="num-records-select">
-                        <option value="1">1</option>
-
-                        <option value="5" selected>5</option>
-                        <option value="10">10</option>
-                      </select>
-                    </div>
-
-                    <div className="form-group">
-                      <label >Start Year (Optional):</label>
-                      <input type="text" className="form-control" id="start-year"/>
-                    </div>
-
-                    <div className="form-group">
-                      <label >End Year (Optional):</label>
-                      <input type="text" className="form-control" id="end-year"/>
-                    </div>
-
-                    <button type="submit" className="btn btn-default" id="run-search">
+                    <button
+                      onClick={this.handleFormSubmit}
+                      type="submit"
+                      className="btn btn-default"
+                      id="run-search">
                       <i className="fa fa-search"></i>
                       Search</button>
-                    <button type="button" className="btn btn-default" id="clear-all">
+                    {/* <button type="button" className="btn btn-default" id="clear-all">
                       <i className="fa fa-trash"></i>
-                      Clear Results</button>
+                      Clear Results</button> */}
 
                   </form>
                 </div>
