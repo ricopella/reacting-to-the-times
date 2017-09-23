@@ -16,6 +16,7 @@
         "colors": "^1.1.2",
         "express": "^4.15.4",
         "json-loader": "^0.5.7",
+        "moment": "^2.18.1",
         "mongoose": "^4.11.11",
         "morgan": "^1.8.2",
         "react": "^15.6.1",

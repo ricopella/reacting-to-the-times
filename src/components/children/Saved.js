@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import API from "../../utils/helpers";
+import moment from "moment";
 
 class Saved extends Component {
 
@@ -64,6 +65,11 @@ class Saved extends Component {
                       <button
                         data-id={article._id}
                         onClick={() => this.deleteSaved({id: article._id})}>Delete</button>
+                      <p>Date Saved: {moment
+                          .utc(article.date)
+                          .format('MMMM Qo YYYY hh:MM A')}
+                        <em>(UTC)</em>
+                      </p>
                     </li>
                   ))}
               </ul>

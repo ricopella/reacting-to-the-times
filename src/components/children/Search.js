@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import API from "../../utils/helpers";
+import moment from "moment";
 
 class Search extends Component {
   state = {
@@ -112,7 +113,7 @@ class Search extends Component {
                   <h3 className="panel-title">
                     <strong>
                       <i className="fa fa-table"></i>
-                      Top Articles</strong>
+                      Results</strong>
                   </h3>
                 </div>
 
@@ -124,11 +125,13 @@ class Search extends Component {
                       .articles
                       .map(article => (
                         <li className="list-group-item" key={article._id}>
-                          {article.headline.main}
-                          <a href={article.web_url}>Article Link</a>
+                          <a target="_blank" href={article.web_url}>{article.headline.main}</a>
                           <button
                             data-id={article}
                             onClick={() => this.saveArticle({title: article.headline.main, url: article.web_url})}>Save</button>
+                          <p>Published Date: {moment
+                              .utc(article.pub_date)
+                              .format('MMMM Qo YYYY hh:MM A')}</p>
                         </li>
                       ))}
                   </ul>
