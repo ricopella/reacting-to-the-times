@@ -30,7 +30,14 @@ class Search extends Component {
       alert("Search Parameters Incorrect")
     } else {
       this.loadArticles(this.state.term, this.state.startYear, this.state.endYear)
+      this.setState({term: "", startYear: "", endYear: ""})
     }
+  }
+  clearForm = event => {
+    event.preventDefault();
+    this.refs.startYear.value = "";
+    this.refs.endYear.value = "";
+    this.refs.term.value = "";
   }
 
   handleInputChange = event => {
@@ -97,6 +104,7 @@ class Search extends Component {
                         type="text"
                         className="form-control"
                         id="search-term"
+                        ref="term"
                         required/>
                     </div>
 
@@ -109,7 +117,8 @@ class Search extends Component {
                         placeholder="Example: 2000"
                         type="text"
                         className="form-control"
-                        id="start-year"/>
+                        id="start-year"
+                        ref="startYear"/>
                     </div>
 
                     <div className="form-group">
@@ -121,7 +130,8 @@ class Search extends Component {
                         placeholder="Example: 2017"
                         type="text"
                         className="form-control"
-                        id="end-year"/>
+                        id="end-year"
+                        ref="endYear"/>
                     </div>
 
                     <button
@@ -131,9 +141,13 @@ class Search extends Component {
                       id="run-search">
                       <i className="fa fa-search"></i>
                       Search</button>
-                    {/* <button type="button" className="btn btn-default" id="clear-all">
+                    <button
+                      onClick={this.clearForm}
+                      type="button"
+                      className="btn btn-default"
+                      id="clear-all">
                       <i className="fa fa-trash"></i>
-                      Clear Results</button> */}
+                      Clear Results</button>
 
                   </form>
                 </div>
