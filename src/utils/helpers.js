@@ -2,9 +2,9 @@ import axios from "axios";
 
 const helpers = {
 
-    runQuery: (search) => {
+    runQuery: (search, startYear, endYear) => {
         const queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=3a19633d5de74f6" +
-                "d88ecfd10d844e151&q=" + search;
+                "d88ecfd10d844e151&q=" + search + "&begin_date=" + startYear + "0101&end_date=" + endYear + "0101";
 
         return axios.get(queryURL)
 

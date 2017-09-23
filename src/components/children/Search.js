@@ -7,7 +7,9 @@ class Search extends Component {
   state = {
     articles: [],
     title: "",
-    term: ""
+    term: "",
+    startYear: "",
+    endYear: ""
   }
 
   componentDidMount() {
@@ -16,33 +18,44 @@ class Search extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    console.log(this.state.term);
-    if (this.state.term) {
-      this.loadArticles(this.state.term)
+    let startYear = parseInt(this.state.startYear);
+    let endYear = parseInt(this.state.endYear);
+    let term = this.state.term;
+    console.log(startYear, endYear);
+
+    if (!this.state.term) {
+      // TODO replace with modal <--------------------------
+      alert("please input a search")
+    } else if (startYear.toString().length < 4 || startYear.toString().length > 4 || endYear.toString().length < 4 || endYear.toString().length > 4 || term.length <= 2 || isNaN(startYear) || isNaN(endYear)) {
+      alert("Search Parameters Incorrect")
+    } else {
+      this.loadArticles(this.state.term, this.state.startYear, this.state.endYear)
     }
   }
 
   handleInputChange = event => {
     const {name, value} = event.target;
-    this.setState({[name]: value});
+    this.setState({[name]: value})
   };
 
-  loadArticles = (query) => {
-    console.log(query);
+  loadArticles = (search, startYear, endYear) => {
     API
-      .runQuery(query)
+      .runQuery(search, startYear, endYear)
       .then(res => {
-        this.setState({articles: res.data.response.docs, title: ""})
-        console.log(this.state.articles)
+        console.log(res);
+        if (res.data.response.docs.length === 0) {
+          // TODO replace with modal <--------------------------
+          alert("No Results Found");
+        } else {
+          this.setState({articles: res.data.response.docs, title: ""})
+        }
       })
       .catch(err => console.log(err));
   }
 
   saveArticle = (article) => {
-    console.log("Title: " + article.title);
-    console.log("url: " + article.url);
-    API.saveArticle({title: article.title, url: article.url})
-    // then load saved books
+    API
+      .saveArticle({title: article.title, url: article.url})
       .catch(err => console.log(err));
   }
 
@@ -75,7 +88,7 @@ class Search extends Component {
                   <form role="form">
 
                     <div className="form-group">
-                      <label >Search Term:</label>
+                      <label>Search Term:</label>
                       <input
                         value={this.state.term}
                         onChange={this.handleInputChange}
@@ -83,7 +96,32 @@ class Search extends Component {
                         placeholder="Required"
                         type="text"
                         className="form-control"
-                        id="search-term"/>
+                        id="search-term"
+                        required/>
+                    </div>
+
+                    <div className="form-group">
+                      <label>Start Year (Optional):</label>
+                      <input
+                        value={this.state.startYear}
+                        onChange={this.handleInputChange}
+                        name="startYear"
+                        placeholder="Example: 2000"
+                        type="text"
+                        className="form-control"
+                        id="start-year"/>
+                    </div>
+
+                    <div className="form-group">
+                      <label>End Year (Optional):</label>
+                      <input
+                        value={this.state.endYear}
+                        onChange={this.handleInputChange}
+                        name="endYear"
+                        placeholder="Example: 2017"
+                        type="text"
+                        className="form-control"
+                        id="end-year"/>
                     </div>
 
                     <button
