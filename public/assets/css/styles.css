@@ -32,6 +32,10 @@ h1.text-center.jumbo-text {
     margin-top: 2%;
 }
 
+.no-results {
+    color: #d0cfd0;
+}
+
 .panel.panel-primary {
     padding: 2%;
     border: 2px solid rgba(0, 0, 0, .125);

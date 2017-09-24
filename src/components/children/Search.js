@@ -43,6 +43,7 @@ class Search extends Component {
     this.refs.startYear.value = "";
     this.refs.endYear.value = "";
     this.refs.term.value = "";
+    this.setState({noSearch: false})
   }
 
   handleInputChange = event => {
@@ -181,7 +182,9 @@ class Search extends Component {
                 <div className="list-overflow-container">
                   <ul className="list-group">
                     {!this.state.noSearch
-                      ? <p>No Search Results</p>
+                      ? <p className="no-results">
+                          <em>No Search Results</em>
+                        </p>
                       : this
                         .state
                         .articles
