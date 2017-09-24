@@ -37,6 +37,13 @@ class Saved extends Component {
 
     return (
       <div className="container">
+        <div className="jumbotron">
+          <h1 className="text-center jumbo-text">
+            <strong>
+              <i className="fa fa-newspaper-o"></i>
+              Reacting to the Times</strong>
+          </h1>
+        </div>
         <div className="row">
           <div className="col-sm-12">
             <br/>

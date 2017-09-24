@@ -18,16 +18,31 @@
     text-shadow: 0px 0px 3px #000;
 }
 
-#heading h1 {
-    font-size: 60px;
+#heading h1,
+h1.text-center.jumbo-text {
+    font-size: 70px;
+    font-family: 'Anton', sans-serif;
 }
 
 #heading p {
     font-size: 30px;
 }
 
+.jumbotron {
+    margin-top: 2%;
+}
+
+.panel.panel-primary {
+    padding: 2%;
+    border: 2px solid rgba(0, 0, 0, .125);
+}
+
 section#searc-results {
     margin-bottom: 8%;
+}
+
+.btn {
+    margin: 1%;
 }
 
 .footer {

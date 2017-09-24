@@ -10,11 +10,12 @@ class Search extends Component {
     title: "",
     term: "",
     startYear: "",
-    endYear: ""
+    endYear: "",
+    noSearch: false
   }
 
   componentDidMount() {
-    // this.loadArticles();
+    this.state.noSearch = false;
   }
 
   handleFormSubmit = event => {
@@ -34,7 +35,6 @@ class Search extends Component {
       alert("Search Parameters Incorrect")
     } else {
       this.loadArticles(this.state.term, this.state.startYear, this.state.endYear)
-
     }
     this.setState({term: "", startYear: "", endYear: ""})
   }
@@ -51,6 +51,7 @@ class Search extends Component {
   };
 
   loadArticles = (search, startYear, endYear) => {
+    this.state.noSearch = true;
     API
       .runQuery(search, startYear, endYear)
       .then(res => {
@@ -77,10 +78,10 @@ class Search extends Component {
       <section id="searc-results">
         <div className="container">
           <div className="jumbotron">
-            <h1 className="text-center">
+            <h1 className="text-center jumbo-text">
               <strong>
                 <i className="fa fa-newspaper-o"></i>
-                New York Times Search</strong>
+                Reacting to the Times</strong>
             </h1>
           </div>
 
@@ -174,28 +175,31 @@ class Search extends Component {
                       Results</strong>
                   </h3>
                 </div>
+                <hr/>
 
                 <div className="panel-body" id="well-section"></div>
                 <div className="list-overflow-container">
                   <ul className="list-group">
-                    {this
-                      .state
-                      .articles
-                      .map(article => (
-                        <li className="list-group-item" key={article._id}>
-                          <a target="_blank" href={article.web_url}>{article.headline.main}</a>
-                          <button
-                            data-id={article}
-                            style={{
-                            float: "right"
-                          }}
-                            className="btn btn-primary"
-                            onClick={() => this.saveArticle({title: article.headline.main, url: article.web_url})}>Save</button>
-                          <p>Published Date: {moment
-                              .utc(article.pub_date)
-                              .format('MMMM Qo YYYY hh:MM A')}</p>
-                        </li>
-                      ))}
+                    {!this.state.noSearch
+                      ? <p>No Search Results</p>
+                      : this
+                        .state
+                        .articles
+                        .map(article => (
+                          <li className="list-group-item" key={article._id}>
+                            <a target="_blank" href={article.web_url}>{article.headline.main}</a>
+                            <button
+                              data-id={article}
+                              style={{
+                              float: "right"
+                            }}
+                              className="btn btn-primary"
+                              onClick={() => this.saveArticle({title: article.headline.main, url: article.web_url})}>Save</button>
+                            <p>Published Date: {moment
+                                .utc(article.pub_date)
+                                .format('MMMM Qo YYYY hh:MM A')}</p>
+                          </li>
+                        ))}
                   </ul>
                 </div>
               </div>
