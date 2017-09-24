@@ -58,11 +58,9 @@ class Search extends Component {
   };
 
   saveHistory = (search, startYear, endYear) => {
-    console.log("Here!");
     API
       .saveHistory({title: search, startYear: startYear, endYear: endYear})
       .then(res => {
-        console.log(res);
         if (res.data.response.docs.length === 0) {
           // TODO replace with modal <--
           alert("No Results Found");

@@ -2,6 +2,7 @@ const express = require('express'),
     colors = require("colors"),
     bodyParser = require("body-parser"),
     logger = require("morgan"),
+    mongoUrl = require("./keys"),
     Article = require("./models/Article"),
     SearchHistory = require("./models/History"),
     mongoose = require("mongoose"),
@@ -17,7 +18,7 @@ app.use(bodyParser.json({type: "application/vnd.api+json"}));
 app.use(express.static("public"));
 
 mongoose.Promise = Promise;
-mongoose.connect(dbURL);
+mongoose.connect(mongoUrl);
 
 // Query mongoDB for all saved articles
 app.get("/api/saved", function (req, res) {
@@ -75,8 +76,7 @@ app.get("/api/saved/history", function (req, res) {
 
 // Save an search to the db
 app.post("/api/saved/history", function (req, res) {
-    console.log("saving!");
-    console.log(req.body);
+
     SearchHistory.create({title: req.body.title, startYear: req.body.startYear, endYear: req.body.endYear}),
     function (err) {
         if (err) {
