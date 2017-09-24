@@ -26,6 +26,10 @@
     font-size: 30px;
 }
 
+section#searc-results {
+    margin-bottom: 8%;
+}
+
 .footer {
     background-color: #efefef;
     color: #d0cfd0;

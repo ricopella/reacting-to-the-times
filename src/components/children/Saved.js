@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import API from "../../utils/helpers";
-import CommentBox from "./CommentBox";
 import moment from "moment";
 
 class Saved extends Component {
@@ -9,15 +8,8 @@ class Saved extends Component {
   state = {
     articles: [],
     title: "",
-    term: "",
-    commentName: "",
-    commentId: ""
+    term: ""
   }
-
-  handleInputChange = event => {
-    const {name, value} = event.target;
-    this.setState({[name]: value});
-  };
 
   componentDidMount() {
     this.loadSaved();
@@ -31,16 +23,6 @@ class Saved extends Component {
         this.setState({articles: res.data, title: ""})
       })
       .catch(err => console.log(err));
-  }
-
-  handleFormSubmit = event => {
-    event.preventDefault();
-    this.submitComment();
-  }
-
-  submitComment = (event, data) => {
-    event.preventDefault();
-    console.log("Ok lets try this", data);
   }
 
   deleteSaved = data => {
@@ -92,13 +74,6 @@ class Saved extends Component {
                             .format('MMMM Qo YYYY hh:MM A')}
                           <em>(UTC)</em>
                         </p>
-                        <form>
-                          <CommentBox
-                            value={this.state.value}
-                            data-id={article._id}
-                            onClick={() => this.submitComment({id: article._id, message: this.state.value})}/>
-
-                        </form>
                       </li>
                     ))}
                 </ul>
