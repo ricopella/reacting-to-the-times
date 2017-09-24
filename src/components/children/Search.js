@@ -84,6 +84,7 @@ class Search extends Component {
   }
 
   loadArticles = (search, startYear, endYear) => {
+    this.loadHistory();
     this.state.noSearch = true;
     API
       .runQuery(search, startYear, endYear)
@@ -263,10 +264,10 @@ class Search extends Component {
                       .historyList
                       .map(history => (
                         <li className="list-group-item" key={history._id}>
-                          <h3>{history.title}</h3>
-                          <p>{history.startYear}</p>
-                          <p>{history.endYear}</p>
-                          <p>{moment
+                          <h5>{history.title}</h5>
+                          <p>Start Year: {history.startYear}
+                            &nbsp;| End Year: {history.endYear}</p>
+                          <p>Date Searched: {moment
                               .utc(history.date)
                               .format('MMMM Qo YYYY hh:MM A')}</p>
                         </li>
