@@ -9,21 +9,11 @@ const helpers = {
         return axios.get(queryURL)
 
     },
-    saveArticle: (articleData) => {
-        return axios.post("/api/saved", articleData);
-    },
-    getSavedArticles: () => {
-        return axios.get("/api/saved")
-    },
-    deleteArticle: (id) => {
-        return axios.delete("api/saved/" + id);
-    },
-    getComments: (id, comment) => {
-        return axios.get("api/saved/" + id + "/" + comment);
-    },
-    saveComment: (id) => {
-        return axios.post("/api/saved/" + id)
-    }
+    saveArticle: (articleData) => axios.post("/api/saved", articleData),
+    getSavedArticles: () => axios.get("/api/saved"),
+    deleteArticle: (id) => axios.delete("api/saved/" + id),
+    getComments: (id, comment) => axios.get("api/saved/" + id + "/" + comment),
+    saveComment: (id) => axios.post("/api/saved/" + id)
 };
 
 export default helpers;

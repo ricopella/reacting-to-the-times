@@ -35,7 +35,6 @@ app.get("/api/saved", function (req, res) {
 
 // Save an article to the db
 app.post("/api/saved", function (req, res) {
-    console.log("oh we're saving!");
     Article.create({title: req.body.title, url: req.body.url}),
     function (err) {
         if (err) {
@@ -48,7 +47,6 @@ app.post("/api/saved", function (req, res) {
 
 // Delete a saved article from db
 app.delete("/api/saved/:id", (req, res) => {
-    console.log(req.params.id);
     Article
         .remove({"_id": req.params.id})
         .exec(function (err, doc) {
@@ -70,6 +68,4 @@ app.use("/", (req, res) => res.sendFile(__dirname + "/public/index.html"));
 
 app.use((req, res) => res.status(404).send("Sorry can't find that!"));
 
-app.listen(port, () => {
-    console.log(`==> 🌎  Listening on PORT ${port}. Visit http://localhost:${port}`.green)
-});
+app.listen(port, () => console.log(`==> 🌎  Listening on PORT ${port}. Visit http://localhost:${port}`.green));

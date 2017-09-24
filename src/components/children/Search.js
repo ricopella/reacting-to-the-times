@@ -4,6 +4,7 @@ import API from "../../utils/helpers";
 import moment from "moment";
 
 class Search extends Component {
+
   state = {
     articles: [],
     title: "",
@@ -23,15 +24,19 @@ class Search extends Component {
     let term = this.state.term;
     console.log(startYear, endYear);
 
-    if (!this.state.term) {
-      // TODO replace with modal <--------------------------
-      alert("please input a search")
-    } else if (startYear.toString().length < 4 || startYear.toString().length > 4 || endYear.toString().length < 4 || endYear.toString().length > 4 || term.length <= 2 || isNaN(startYear) || isNaN(endYear)) {
+    if (!this.state.startYear && !this.state.endYear) {
+      this.loadArticles(this.state.term, 1900, 2017);
+    } else if (!this.stateYear) {
+      this.loadArticles(this.state.term, 1900, this.state.endYear);
+    } else if (!this.endYear) {
+      this.loadArticles(this.state.term, this.state.startYear, 2017);
+    } else if (term.length <= 2 || isNaN(startYear) || isNaN(endYear)) {
       alert("Search Parameters Incorrect")
     } else {
       this.loadArticles(this.state.term, this.state.startYear, this.state.endYear)
-      this.setState({term: "", startYear: "", endYear: ""})
+
     }
+    this.setState({term: "", startYear: "", endYear: ""})
   }
   clearForm = event => {
     event.preventDefault();
@@ -51,7 +56,7 @@ class Search extends Component {
       .then(res => {
         console.log(res);
         if (res.data.response.docs.length === 0) {
-          // TODO replace with modal <--------------------------
+          // TODO replace with modal <--
           alert("No Results Found");
         } else {
           this.setState({articles: res.data.response.docs, title: ""})
@@ -138,6 +143,7 @@ class Search extends Component {
                       onClick={this.handleFormSubmit}
                       type="submit"
                       className="btn btn-primary"
+                      disabled={!this.state.term}
                       id="run-search">
                       <i className="fa fa-search"></i>
                       Search</button>
