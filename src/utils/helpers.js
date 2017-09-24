@@ -17,6 +17,12 @@ const helpers = {
     },
     deleteArticle: (id) => {
         return axios.delete("api/saved/" + id);
+    },
+    getComments: (id, comment) => {
+        return axios.get("api/saved/" + id + "/" + comment);
+    },
+    saveComment: (id) => {
+        return axios.post("/api/saved/" + id)
     }
 };
 

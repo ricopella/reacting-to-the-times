@@ -14,7 +14,17 @@ let ArticleSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    like: {
+        type: Number,
+        default: 0
+    },
+    comments: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Comments"
+        }
+    ]
 })
 
 let Article = mongoose.model("Article", ArticleSchema);
