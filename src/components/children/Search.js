@@ -266,10 +266,21 @@ class Search extends Component {
                         <li className="list-group-item" key={history._id}>
                           <h5>{history.title}</h5>
                           <p>Start Year: {history.startYear}
-                            &nbsp;| End Year: {history.endYear}</p>
+                            &nbsp;| End Year: {history.endYear}
+                            <button
+                              data-title={history.title}
+                              data-start={history.startYear}
+                              data-end={history.endYear}
+                              style={{
+                              float: "right"
+                            }}
+                              className="btn btn-info"
+                              onClick={() => this.loadArticles(history.title, history.startYear, history.endYear)}>Search Again</button>
+                          </p>
                           <p>Date Searched: {moment
                               .utc(history.date)
                               .format('MMMM Qo YYYY hh:MM A')}</p>
+
                         </li>
                       ))}
                   </ul>
