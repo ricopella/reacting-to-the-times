@@ -6,7 +6,7 @@ This Full-Stack application was built with React and Bootstrap on the front-end 
 
 ## Installation
 
-1. `git clone https://github.com/ricopella/cup-of-hackernoon` the repository to your local computer
+1. `git clone https://github.com/ricopella/reacting-to-the-times` the repository to your local computer
 2. `git bash` into the directory created by the clone
 3. Run `npm install`
 5. Update connection string to reflect credentials for your mongoDB instance
