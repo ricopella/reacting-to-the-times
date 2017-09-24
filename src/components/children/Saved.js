@@ -33,10 +33,13 @@ class Saved extends Component {
       .catch(err => console.log(err));
   }
 
-  handleFormSubmit = event => {}
+  handleFormSubmit = event => {
+    event.preventDefault();
+    this.submitComment();
+  }
 
-  submitComment = data => {
-
+  submitComment = (event, data) => {
+    event.preventDefault();
     console.log("Ok lets try this", data);
   }
 
@@ -91,8 +94,9 @@ class Saved extends Component {
                         </p>
                         <form>
                           <CommentBox
+                            value={this.state.value}
                             data-id={article._id}
-                            onClick={() => this.submitComment({id: article._id})}/>
+                            onClick={() => this.submitComment({id: article._id, message: this.state.value})}/>
 
                         </form>
                       </li>

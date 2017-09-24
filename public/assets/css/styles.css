@@ -25,3 +25,15 @@
 #heading p {
     font-size: 30px;
 }
+
+.footer {
+    background-color: #efefef;
+    color: #d0cfd0;
+    position: fixed;
+    bottom: 0;
+    width: 100vw
+}
+
+.footer p {
+    padding-top: 1%;
+}
