@@ -3,6 +3,7 @@ const express = require('express'),
     bodyParser = require("body-parser"),
     logger = require("morgan"),
     Article = require("./models/Article"),
+    SearchHistory = require("./models/History"),
     mongoose = require("mongoose"),
     dbURL = "mongodb://localhost/reactingtimes",
     app = express(),
@@ -56,6 +57,34 @@ app.delete("/api/saved/:id", (req, res) => {
                 res.send(doc);
             }
         })
+})
+
+// get all searches
+app.get("/api/saved/history", function (req, res) {
+
+    SearchHistory
+        .find({})
+        .exec((err, doc) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(doc);
+            }
+        });
+});
+
+// Save an search to the db
+app.post("/api/saved/history", function (req, res) {
+    console.log("saving!");
+    console.log(req.body);
+    SearchHistory.create({title: req.body.title, startYear: req.body.startYear, endYear: req.body.endYear}),
+    function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send("Saved Search");
+        }
+    }
 })
 
 const db = mongoose.connection;

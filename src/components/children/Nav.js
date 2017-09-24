@@ -20,10 +20,10 @@ const Nav = props => <nav className="navbar navbar-expand-lg navbar-light bg-lig
         </Link>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/saved">Saved Articles</Link>
+        <Link className="nav-link" to="/search">Search</Link>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/search">Search</Link>
+        <Link className="nav-link" to="/saved">Saved Articles</Link>
       </li>
     </ul>
   </div>

@@ -7,6 +7,7 @@ class Search extends Component {
 
   state = {
     articles: [],
+    historyList: [],
     title: "",
     term: "",
     startYear: "",
@@ -16,6 +17,7 @@ class Search extends Component {
 
   componentDidMount() {
     this.state.noSearch = false;
+    this.loadHistory();
   }
 
   handleFormSubmit = event => {
@@ -26,15 +28,19 @@ class Search extends Component {
     console.log(startYear, endYear);
 
     if (!this.state.startYear && !this.state.endYear) {
+      this.saveHistory(this.state.term, 1900, 2017);
       this.loadArticles(this.state.term, 1900, 2017);
     } else if (!this.stateYear) {
+      this.saveHistory(this.state.term, 1900, this.state.endYear)
       this.loadArticles(this.state.term, 1900, this.state.endYear);
     } else if (!this.endYear) {
+      this.saveHistory(this.state.term, this.state.startYear, 2017)
       this.loadArticles(this.state.term, this.state.startYear, 2017);
     } else if (term.length <= 2 || isNaN(startYear) || isNaN(endYear)) {
       alert("Search Parameters Incorrect")
     } else {
-      this.loadArticles(this.state.term, this.state.startYear, this.state.endYear)
+      this.saveHistory(this.state.term, this.state.startYear, this.state.endYear);
+      this.loadArticles(this.state.term, this.state.startYear, this.state.endYear);
     }
     this.setState({term: "", startYear: "", endYear: ""})
   }
@@ -51,12 +57,37 @@ class Search extends Component {
     this.setState({[name]: value})
   };
 
+  saveHistory = (search, startYear, endYear) => {
+    console.log("Here!");
+    API
+      .saveHistory({title: search, startYear: startYear, endYear: endYear})
+      .then(res => {
+        console.log(res);
+        if (res.data.response.docs.length === 0) {
+          // TODO replace with modal <--
+          alert("No Results Found");
+        } else {
+          this.setState({historyList: res.data.response.docs})
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+  loadHistory = () => {
+    API
+      .getHistory()
+      .then(res => {
+        console.log(res.data);
+        this.setState({historyList: res.data})
+      })
+      .catch(err => console.log(err));
+  }
+
   loadArticles = (search, startYear, endYear) => {
     this.state.noSearch = true;
     API
       .runQuery(search, startYear, endYear)
       .then(res => {
-        console.log(res);
         if (res.data.response.docs.length === 0) {
           // TODO replace with modal <--
           alert("No Results Found");
@@ -208,6 +239,44 @@ class Search extends Component {
               </div>
             </div>
           </div>
+
+          <div className="row">
+            <div className="col-sm-12">
+              <br/>
+
+              <div className="panel panel-primary">
+
+                <div className="panel-heading">
+                  <h3 className="panel-title">
+                    <strong>
+                      <i className="fa fa-table"></i>
+                      Search History</strong>
+                  </h3>
+                </div>
+                <hr/>
+
+                <div className="panel-body" id="well-section"></div>
+                <div className="list-overflow-container">
+                  <ul className="list-group">
+                    {this
+                      .state
+                      .historyList
+                      .map(history => (
+                        <li className="list-group-item" key={history._id}>
+                          <h3>{history.title}</h3>
+                          <p>{history.startYear}</p>
+                          <p>{history.endYear}</p>
+                          <p>{moment
+                              .utc(history.date)
+                              .format('MMMM Qo YYYY hh:MM A')}</p>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
     );

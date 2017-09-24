@@ -12,8 +12,8 @@ const helpers = {
     saveArticle: (articleData) => axios.post("/api/saved", articleData),
     getSavedArticles: () => axios.get("/api/saved"),
     deleteArticle: (id) => axios.delete("api/saved/" + id),
-    getComments: (id, comment) => axios.get("api/saved/" + id + "/" + comment),
-    saveComment: (id) => axios.post("/api/saved/" + id)
+    getHistory: () => axios.get("/api/saved/history"),
+    saveHistory: (data) => axios.post("/api/saved/history", data)
 };
 
 export default helpers;
