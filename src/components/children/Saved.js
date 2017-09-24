@@ -38,41 +38,43 @@ class Saved extends Component {
   render() {
 
     return (
-      <div className="row">
-        <div className="col-sm-12">
-          <br/>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-12">
+            <br/>
 
-          <div className="panel panel-primary">
+            <div className="panel panel-primary">
 
-            <div className="panel-heading">
-              <h3 className="panel-title">
-                <strong>
-                  <i className="fa fa-table"></i>
-                  Top Articles</strong>
-              </h3>
-            </div>
+              <div className="panel-heading">
+                <h3 className="panel-title">
+                  <strong>
+                    <i className="fa fa-table"></i>
+                    Saved Articles</strong>
+                </h3>
+              </div>
 
-            <div className="panel-body" id="well-section"></div>
-            <div className="list-overflow-container">
-              <ul className="list-group">
-                {this
-                  .state
-                  .articles
-                  .map(article => (
-                    <li className="list-group-item" key={article._id}>
-                      {article.title}
-                      <a href={article.url}>Article Link</a>
-                      <button
-                        data-id={article._id}
-                        onClick={() => this.deleteSaved({id: article._id})}>Delete</button>
-                      <p>Date Saved: {moment
-                          .utc(article.date)
-                          .format('MMMM Qo YYYY hh:MM A')}
-                        <em>(UTC)</em>
-                      </p>
-                    </li>
-                  ))}
-              </ul>
+              <div className="panel-body" id="well-section"></div>
+              <div className="list-overflow-container">
+                <ul className="list-group">
+                  {this
+                    .state
+                    .articles
+                    .map(article => (
+                      <li className="list-group-item" key={article._id}>
+                        <a href={article.url}>{article.title}</a>
+                        <button
+                          className="btn btn-danger"
+                          data-id={article._id}
+                          onClick={() => this.deleteSaved({id: article._id})}>Delete</button>
+                        <p>Date Saved: {moment
+                            .utc(article.date)
+                            .format('MMMM Qo YYYY hh:MM A')}
+                          <em>(UTC)</em>
+                        </p>
+                      </li>
+                    ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
