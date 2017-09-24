@@ -137,14 +137,14 @@ class Search extends Component {
                     <button
                       onClick={this.handleFormSubmit}
                       type="submit"
-                      className="btn btn-default"
+                      className="btn btn-primary"
                       id="run-search">
                       <i className="fa fa-search"></i>
                       Search</button>
                     <button
                       onClick={this.clearForm}
                       type="button"
-                      className="btn btn-default"
+                      className="btn btn-secondary"
                       id="clear-all">
                       <i className="fa fa-trash"></i>
                       Clear Results</button>
@@ -180,6 +180,10 @@ class Search extends Component {
                           <a target="_blank" href={article.web_url}>{article.headline.main}</a>
                           <button
                             data-id={article}
+                            style={{
+                            float: "right"
+                          }}
+                            className="btn btn-primary"
                             onClick={() => this.saveArticle({title: article.headline.main, url: article.web_url})}>Save</button>
                           <p>Published Date: {moment
                               .utc(article.pub_date)
