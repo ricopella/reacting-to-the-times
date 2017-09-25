@@ -4,7 +4,8 @@ const express = require('express'),
     logger = require("morgan"),
     mongoose = require("mongoose"),
     routes = require("./routes"),
-    mognoURL = require("./keys"),
+    mongoUrl = require("./keys"),
+    dbURL = "mongodb://localhost/reactingtimes",
     app = express(),
     port = process.env.PORT || 3000;
 
@@ -14,10 +15,15 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json({type: "application/vnd.api+json"}));
 app.use(express.static("client/public"));
 
-app.use(routes);
-
 mongoose.Promise = Promise;
 // Connect to the Mongo DB
-mongoose.connect(mognoURL);
+mongoose.connect(dbURL);
+const db = mongoose.connection;
+
+db.on("error", error => console.log("Database Error:", error));
+
+db.once("open", () => console.log("Mongoose connection successful."));
+
+app.use(routes);
 app.use((req, res) => res.status(404).send("Sorry can't find that!"));
 app.listen(port, () => console.log(`==> 🌎  Listening on PORT ${port}. Visit http://localhost:${port}`.green));
